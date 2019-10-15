@@ -73,7 +73,7 @@ public enum HttpClientUtil {
                 .setConnectionManager(clientConnectionManager)
                 .setRetryHandler((exception, executionCount, context) -> {
                     boolean retry = (executionCount < RETRY_COUNT);
-                    log.info("Http请求重试次数：" + executionCount + ",Exception:" + exception.getMessage());
+                    log.info("Http Retry Count:" + executionCount + ",Exception:" + exception.getMessage());
                     return retry;
                 }).build();
     }
@@ -125,7 +125,7 @@ public enum HttpClientUtil {
             try {
                 content = EntityUtils.toString(responseEntity);
             } catch (Exception e) {
-                log.error("responseEntity异常：" + e.getMessage());
+                log.error("responseEntity Error：" + e.getMessage());
             }
             httpResponse.setContent(content);
         } finally {
@@ -160,7 +160,7 @@ public enum HttpClientUtil {
         int status = response.getStatusLine().getStatusCode();
         log.info(baseRequest.getURI() + " Response Code:" + status);
         if (status == 302 || status == 301) {
-            log.info("重定向地址：" + response.getFirstHeader("Location").getValue());
+            log.info("Redirect Loaction:" + response.getFirstHeader("Location").getValue());
         }
         return response;
     }
