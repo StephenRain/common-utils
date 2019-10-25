@@ -22,4 +22,10 @@ public class FileUtilTest {
                 });
 
     }
+
+
+    @Test
+    public void test12(){
+        FileUtil.createDirsIfNotExists("d://temp//aa.txt");
+    }
 }

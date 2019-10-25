@@ -2,6 +2,7 @@ package org.code.common.util.file;
 
 import lombok.SneakyThrows;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -23,8 +24,17 @@ public class FileUtil {
             Files.write(Paths.get(targetFilePath),updatedStr.getBytes(),
                     StandardOpenOption.WRITE,StandardOpenOption.APPEND,StandardOpenOption.CREATE);
         }
-
     }
 
 
+    /**
+     *
+     * @param dirPath
+     */
+    public static void createDirsIfNotExists(String dirPath){
+        File file = new File(dirPath);
+        if(!file.exists()&& !file.isDirectory()){
+            file.mkdirs();
+        }
+    }
 }
