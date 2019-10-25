@@ -62,4 +62,17 @@ public class HttpResponse extends HttpVerifier {
         // todo
         return e == null;
     }
+
+    @Override
+    public String toString() {
+        return "HttpResponse{" +
+                "content='" + content + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", charset='" + charset + '\'' +
+                ", status=" + status +
+                ", e=" + e +
+                ", serverUrl='" + serverUrl + '\'' +
+                ", headers=" + headers +
+                '}';
+    }
 }

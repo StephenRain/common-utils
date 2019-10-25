@@ -20,9 +20,9 @@ public class HttpRequest extends HttpProxyPool {
 
     protected String url;
 
-    protected HttpMethod type = HttpMethod.GET;
+    protected HttpMethod type;
 
-    protected String charset = "utf-8";
+    protected String charset;
 
     protected HttpProxy[] httpProxies;
 
@@ -40,29 +40,31 @@ public class HttpRequest extends HttpProxyPool {
         body.put(key, value);
     }
 
-    HttpRequest(){ }
-
-    HttpRequest (String url){
-        this.url = url;
+    HttpRequest() {
     }
 
-    HttpRequest (String url, HttpProxy[] httpProxies){
+    HttpRequest(String url) {
         this.url = url;
+        this.type = HttpMethod.GET;
+        this.charset = "utf-8";
+    }
+
+    HttpRequest(String url, HttpProxy[] httpProxies) {
+        this(url);
         this.httpProxies = httpProxies;
         initPool();
     }
 
-    HttpRequest (String url, HttpProxy httpProxy){
-        this(url,new HttpProxy[]{httpProxy});
+    HttpRequest(String url, HttpProxy httpProxy) {
+        this(url, new HttpProxy[]{httpProxy});
 
     }
-
 
 
     @Override
     public void initPool() {
         super.pool = new LinkedBlockingQueue<>();
-        for(int i = 0;i < httpProxies.length;i++){
+        for (int i = 0; i < httpProxies.length; i++) {
             addHttpProxy(httpProxies[i]);
         }
     }
@@ -80,5 +82,35 @@ public class HttpRequest extends HttpProxyPool {
         if (pool instanceof BlockingQueue) {
             super.pool.add(httpProxy);
         }
+    }
+
+    public HttpRequestBuilder build() {
+        return new HttpRequestBuilder().build();
+    }
+
+
+    class HttpRequestBuilder {
+
+        private HttpRequest httpRequest;
+
+        /**
+         * Get请求
+         *
+         * @param url
+         * @return
+         */
+        public HttpRequest get(String url) {
+            if (httpRequest == null) {
+                httpRequest = new HttpRequest();
+            }
+            httpRequest.setUrl(url);
+            httpRequest.setType(HttpMethod.GET);
+            return httpRequest;
+        }
+
+        private HttpRequestBuilder build(){
+            return this;
+        }
+
     }
 }

@@ -15,8 +15,7 @@ public class HttpHelperTest {
     }
 
     @Test
-    public void pingUseProxy() {
-        boolean pong = HttpHelper.pingUseProxy("http://www.baidu.com", new HttpProxy("47.107.80.182", 8000));
-        log.info("pong:" + pong);
+    public void pingUseProxy() throws InterruptedException {
+       HttpHelper.pingUseProxy("http://www.baidu.com", "122.51.51.6:1800");
     }
 }
